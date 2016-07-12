@@ -13,8 +13,8 @@ var User = require('../api/users/user.model');
 app.use(session({
   // this mandatory configuration ensures that session IDs are not predictable
   secret: 'tongiscool',
-  duration: 30*60*1000,
-  activeDuration: 5*60*1000
+  duration: 30 * 60 * 1000,
+  activeDuration: 5 * 60 * 1000
 }));
 
 app.use(function (req, res, next) {
@@ -31,6 +31,21 @@ app.post('/login', function(req, res, next){
 	})
 	.catch(next);
 });
+
+app.post('/signup', function(req, res, next){
+  User.create(req.body)
+  .then(function(newUser){
+    if (!newUser) return res.sendStatus(400);
+    req.session.userId = newUser.id;
+    res.sendStatus(204);
+  })
+  .catch(next);
+})
+
+app.get('/logout', function(req, res, next){
+  console.log("it reached")
+  req.session.destroy()
+})
 
 app.use('/api', require('../api/api.router'));
 

@@ -15,14 +15,14 @@
     <h4 class="media-heading tucked">
       <div
         ng-if="isForm"
-        contenteditable
+        contenteditable="{{isAdmin()}}"
         placeholder="Jean Doe"
         ng-model="user.name"
         class="form-like">
       </div>
       <span
         ng-if="!isForm"
-        contenteditable
+        contenteditable="{{isAdmin()}}"
         placeholder="Jean Doe"
         ng-model="user.name"
         ng-model-options="{debounce: 500}"
@@ -38,15 +38,17 @@
     </h4>
     <h5 class="tucked">
       <div
+        ng-class="{invisible: !isLogged()}"
         ng-if="isForm"
-        contenteditable
+        contenteditable="{{isAdmin()}}"
         placeholder="email@website.com"
         ng-model="user.email"
         class="form-like">
       </div>
       <span
+        ng-class="{invisible: !isLogged()}"
         ng-if="!isForm"
-        contenteditable
+        contenteditable="{{isAdmin()}}"
         ng-model="user.email"
         ng-model-options="{debounce: 500}"
         eat-click>
@@ -54,15 +56,17 @@
     </h5>
     <h5 class="tucked">
       <div
+       ng-class="{invisible: !isLogged()}"
         ng-if="isForm"
-        contenteditable
+        contenteditable="{{isAdmin()}}"
         placeholder="(555) 555-5555"
         ng-model="user.phone"
         class="form-like">
       </div>
       <span
+       ng-class="{invisible: !isLogged()}"
         ng-if="!isForm"
-        contenteditable
+        contenteditable="{{isAdmin()}}"
         placeholder="(555) 555-5555"
         ng-model="user.phone"
         ng-model-options="{debounce: 500}"
@@ -70,13 +74,14 @@
       </span>
     </h5>
   </div>
-  <div ng-show="isAdmin()" class="media-right media-middle">
+  <div class="media-right media-middle">
     <button
+      ng-class="{invisible: !isAdmin()}"
       ng-if="!isForm"
       class="btn btn-default"
       ng-click="removeUser()"
       eat-click>
-      <span class="glyphicon glyphicon-remove"></span>
+      <span  class="glyphicon glyphicon-remove"></span>
     </button>
   </div>
 </p>

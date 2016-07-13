@@ -47,8 +47,18 @@ app.post('/signup', function(req, res, next){
 })
 
 app.get('/logout', function(req, res, next){
-  console.log("it reached")
   req.session.destroy()
+})
+
+app.get('/auth/me', function(req, res, next){
+  User.findOne({where: {id: req.session.userId}})
+  .then(function(user){
+    if (!user) return res.sendStatus(401);
+    user.password = null;
+    res.status(200);
+    res.json(user);
+  })
+  .catch(next);
 })
 
 app.use('/api', require('../api/api.router'));

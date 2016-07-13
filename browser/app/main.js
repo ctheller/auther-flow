@@ -6,3 +6,7 @@ app.config(function ($urlRouterProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise('/');
 });
+
+app.controller('GetMeCtrl', function(AuthFactory){
+	AuthFactory.getMe();
+})

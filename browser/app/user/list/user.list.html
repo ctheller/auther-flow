@@ -4,9 +4,11 @@
       is-form
       model="userSearch"
       class="list-group-item min-content"
-      glyphicon="search">
+      glyphicon="search"
+      ng-class="{invisible: !isLogged()}">
     </user-item>
     <user-item
+      ng-class="{invisible: !isLogged()}"
       is-form
       model="userAdd"
       class="list-group-item min-content"

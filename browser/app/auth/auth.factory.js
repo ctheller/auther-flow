@@ -30,5 +30,12 @@ app.factory('AuthFactory', function ($http, $log) {
   	return currentUser;
   }
 
+  AuthFactory.getMe = function(){
+    return $http.get('/auth/me')
+    .then(function(resp){
+      currentUser = resp.data;
+    }).catch($log.error);
+  }
+
   return AuthFactory;
 });

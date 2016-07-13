@@ -21,3 +21,6 @@ user-item .media-heading {
 .toggleable:hover {
   opacity: 0.5;
   cursor: pointer; }
+.invisible:{
+  visibility: hidden
+}

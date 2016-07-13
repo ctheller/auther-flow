@@ -23,7 +23,9 @@
         <a ui-sref="story({id: story.id})">
           {{ story.title }}
         </a>
-        <button class="btn btn-default btn-xs" ng-click="removeStory(story)">
+        <button 
+        ng-class="{invisible: !isAdmin()}"
+        class="btn btn-default btn-xs" ng-click="removeStory(story)">
           <span class="glyphicon glyphicon-remove"></span>
         </button>
       </p>

@@ -70,18 +70,6 @@ app.get('/logout', function(req, res, next){
   req.session.destroy()
 })
 
-app.get('/auth/me', function(req, res, next){
-  if (!req.user) return res.send(undefined);
-  User.findOne({where: {id: req.user.id}})
-  .then(function(user){
-    if (!user) return res.sendStatus(401);
-    user.password = null;
-    res.status(200);
-    res.json(user);
-  })
-  .catch(next);
-})
-
 // Google authentication and login 
 app.get('/auth/google', passport.authenticate('google', { scope : 'email' }));
 
@@ -89,7 +77,7 @@ app.get('/auth/google', passport.authenticate('google', { scope : 'email' }));
 app.get('/auth/google/callback',
   passport.authenticate('google', {
     successRedirect : '/', // or wherever
-    failureRedirect : '/users/' // or wherever
+    failureRedirect : '/login/' // or wherever
   })
 );
 
@@ -114,6 +102,7 @@ passport.use(
       defaults: info
     })
     .spread(function (user) {
+      //spread because an array is returned
       done(null, user);
     })
     .catch(done);
@@ -133,9 +122,21 @@ passport.deserializeUser(function (id, done) {
 });
 
 app.use(function (req, res, next) {
-  console.log('Session:', req.user);
+  console.log('Session User:', session);
   next();
 });
+
+app.get('/auth/me', function(req, res, next){
+  if (!req.user) return res.send(undefined);
+  User.findOne({where: {id: req.user.id}})
+  .then(function(user){
+    if (!user) return res.sendStatus(401);
+    user.password = null;
+    res.status(200);
+    res.json(user);
+  })
+  .catch(next);
+})
 
 app.use('/api', require('../api/api.router'));
 

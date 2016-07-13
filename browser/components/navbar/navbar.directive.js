@@ -1,6 +1,6 @@
 'use strict';
 
-app.directive('navbar', function ($state, $location, LoginFactory) {
+app.directive('navbar', function ($state, $location, AuthFactory) {
   return {
     restrict: 'E',
     templateUrl: '/browser/components/navbar/navbar.html',
@@ -11,8 +11,8 @@ app.directive('navbar', function ($state, $location, LoginFactory) {
         return path.startsWith(partial);
       }
       scope.logOut = function(){
-        LoginFactory.logOut();
-        console.log("it worked");
+        AuthFactory.logOut();
+        console.log("Logged out");
       }
     }
   }

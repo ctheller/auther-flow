@@ -1,11 +1,10 @@
 'use strict';
 
-app.controller('LoginCtrl', function ($scope, LoginFactory, $state){
+app.controller('LoginCtrl', function ($scope, AuthFactory, $state){
 
  $scope.submitLogin = function(){
-  LoginFactory.loginAttempt($scope.email, $scope.password)
+  AuthFactory.loginAttempt($scope.email, $scope.password)
   .then(function(){
-    console.log("it worked")
     $state.go("stories")
   }).catch(console.error)
  }

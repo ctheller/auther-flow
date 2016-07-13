@@ -27,7 +27,9 @@ app.post('/login', function(req, res, next){
 	.then(function(user){
 		if (!user) return res.sendStatus(401);
 		req.session.userId = user.id;
-		res.sendStatus(204);
+    user.password = null;
+    res.status(200);
+		res.json(user);
 	})
 	.catch(next);
 });
@@ -37,7 +39,9 @@ app.post('/signup', function(req, res, next){
   .then(function(newUser){
     if (!newUser) return res.sendStatus(400);
     req.session.userId = newUser.id;
-    res.sendStatus(204);
+    newUser.password = null;
+    res.status(200);
+    res.json(newUser);
   })
   .catch(next);
 })

@@ -1,11 +1,11 @@
 'use strict';
 
-app.controller('SignupCtrl', function ($scope, SignupFactory, $state){
+app.controller('SignupCtrl', function ($scope, AuthFactory, $state){
 
  $scope.makeAccount = function(){
-  SignupFactory.signUp($scope.email, $scope.password)
+  AuthFactory.signUp($scope.email, $scope.password)
   .then(function(){
-    console.log("it worked")
+    console.log("Signed up")
     $scope.email = "";
     $scope.password = "";
     $state.go("stories")

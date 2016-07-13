@@ -1,6 +1,6 @@
 'use strict';
 
-app.directive('userItem', function () {
+app.directive('userItem', function (AuthFactory) {
   return {
     restrict: 'E',
     templateUrl: '/browser/app/user/item/user.item.html',
@@ -11,6 +11,7 @@ app.directive('userItem', function () {
       afterRemove: '&'
     },
     link: function (scope, elem, attrs) {
+
       if (attrs.hasOwnProperty('isForm')) scope.isForm = true;
       if (attrs.hasOwnProperty('iconClick')) scope.hasIconClick = true;
       if (!scope.isForm) {
@@ -20,12 +21,18 @@ app.directive('userItem', function () {
           else scope.user.save();
         }, true);
       }
+
       scope.removeUser = function () {
         scope.user.destroy()
         .then(function () {
           scope.afterRemove();
         });
-      };
+      }
+
+      scope.isAdmin = function () {
+        //PROBLEM WITH THIS
+        return AuthFactory.getCurrentUser().isAdmin;
+      }
     }
   }
 });

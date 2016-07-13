@@ -19,6 +19,7 @@ app.factory('User', function ($http, Story) {
     return $http.get(this.getUrl())
     .then(function (res) {
       var user = new User(res.data);
+      if (!user.stories) return user;
       user.stories = user.stories.map(function (obj) {
         return new Story(obj);
       });

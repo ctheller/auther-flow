@@ -28,6 +28,7 @@ app.factory('AuthFactory', function ($http, $log) {
 
   AuthFactory.getCurrentUser = function(){
   	return currentUser;
+    console.log("******Current User is:", currentUser);
   }
 
   AuthFactory.getMe = function(){

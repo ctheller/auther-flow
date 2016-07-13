@@ -8,7 +8,7 @@ app.controller('SignupCtrl', function ($scope, AuthFactory, $state){
     console.log("Signed up")
     $scope.email = "";
     $scope.password = "";
-    $state.go("stories")
+    $state.go("user", {id: AuthFactory.getCurrentUser().id})
   }).catch(console.error)
  }
 
